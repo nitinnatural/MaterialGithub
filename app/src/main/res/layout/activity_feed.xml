@@ -97,6 +97,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
+        android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="@+id/rv_feed"
         app:layout_constraintRight_toRightOf="@+id/rv_feed" />
 

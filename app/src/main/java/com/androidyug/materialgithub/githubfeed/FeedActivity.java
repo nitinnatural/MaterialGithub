@@ -1,5 +1,6 @@
 package com.androidyug.materialgithub.githubfeed;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidyug.materialgithub.MainActivity;
 import com.androidyug.materialgithub.R;
 import com.androidyug.materialgithub.model.GithubResponse;
 import com.androidyug.materialgithub.model.Owner;
@@ -82,7 +84,15 @@ public class FeedActivity extends AppCompatActivity {
         tvUsername = (TextView) findViewById(R.id.tv_username);
         ivAvatar = (ImageView) findViewById(R.id.iv_avatar);
         progressBar = (FrameLayout) findViewById(R.id.progress_bar_holder);
-//        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FeedActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
 //        progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressbar);
     }
 
