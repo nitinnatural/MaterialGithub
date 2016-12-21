@@ -1,26 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CollapsingToolbarLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_feed"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.androidyug.materialgithub.FeedActivity">
+    tools:context="com.androidyug.materialgithub.githubfeed.FeedActivity">
 
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        />
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                app:layout_collapseMode="parallax"
+                android:gravity="center_vertical"
+                android:background="@color/deep_purple"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@color/amber"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="40dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:layout_marginLeft="20dp"
+                    tools:text="nitinnatural"
+                    />
+
+            </LinearLayout>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_feed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layout_editor_absoluteX="8dp">
 
     </android.support.v7.widget.RecyclerView>
@@ -36,4 +82,4 @@
         app:layout_constraintBottom_toBottomOf="@+id/rv_feed"
         app:layout_constraintRight_toRightOf="@+id/rv_feed" />
 
-</android.support.design.widget.CollapsingToolbarLayout>
+</android.support.design.widget.CoordinatorLayout>

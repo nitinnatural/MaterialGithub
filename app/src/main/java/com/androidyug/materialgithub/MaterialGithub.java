@@ -3,7 +3,7 @@ package com.androidyug.materialgithub;
 import android.app.Application;
 
 /**
- * Created by Nicheminds on 12/20/2016.
+ * @author nitinnatural@gmail.com
  */
 
 public class MaterialGithub  extends Application{

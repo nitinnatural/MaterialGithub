@@ -12,4 +12,31 @@ public class GithubResponse {
     public String htmlUrl;
     public String description;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public Boolean get_private() {
+        return _private;
+    }
+
+    public String getHtmlUrl() {
+        return htmlUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

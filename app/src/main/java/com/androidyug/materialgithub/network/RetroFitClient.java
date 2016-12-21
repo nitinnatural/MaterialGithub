@@ -1,13 +1,13 @@
 package com.androidyug.materialgithub.network;
 
-import com.androidyug.materialgithub.model.DataSet;
 import com.androidyug.materialgithub.model.GithubResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -39,7 +39,8 @@ public class RetroFitClient {
 
 
     public void getUser(String githubUsername, Callback callback ){
-        Call<DataSet> call = apiService.fetchUser(githubUsername);
+
+        Call<List<GithubResponse>> call = apiService.fetchUser(githubUsername);
         call.enqueue(callback);
     }
 
