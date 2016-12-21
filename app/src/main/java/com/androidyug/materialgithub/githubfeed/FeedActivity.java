@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,9 +30,8 @@ public class FeedActivity extends AppCompatActivity {
     RecyclerView rvFeed;
     TextView tvUsername;
     ImageView ivAvatar;
-
-
-//    FloatingActionButton fab;
+    FloatingActionButton fab;
+    FrameLayout progressBar;
 //    ContentLoadingProgressBar progressBar;
 
 
@@ -42,15 +43,18 @@ public class FeedActivity extends AppCompatActivity {
 
         String username = getIntent().getStringExtra(INTENT_USERNAME);
         RetroFitClient rfClient = new RetroFitClient();
+        toggleProgressBar(true);
         rfClient.getUser(username, new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 List<GithubResponse> ghResponse = (List<GithubResponse>) response.body();
                 initFeedRecyclerView(ghResponse);
+                toggleProgressBar(false);
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
+                toggleProgressBar(false);
             }
         });
     }
@@ -64,11 +68,20 @@ public class FeedActivity extends AppCompatActivity {
         rvFeed.setLayoutManager(new LinearLayoutManager(this));
     }
 
+
+    void toggleProgressBar(boolean enable){
+        if (enable){
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     void initViews(){
         rvFeed = (RecyclerView) findViewById(R.id.rv_feed);
         tvUsername = (TextView) findViewById(R.id.tv_username);
         ivAvatar = (ImageView) findViewById(R.id.iv_avatar);
-
+        progressBar = (FrameLayout) findViewById(R.id.progress_bar_holder);
 //        fab = (FloatingActionButton) findViewById(R.id.fab);
 //        progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressbar);
     }
