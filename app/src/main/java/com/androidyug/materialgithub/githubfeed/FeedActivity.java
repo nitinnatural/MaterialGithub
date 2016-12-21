@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidyug.materialgithub.MainActivity;
 import com.androidyug.materialgithub.R;
@@ -43,14 +44,20 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
         initViews();
 
-        String username = getIntent().getStringExtra(INTENT_USERNAME);
+        final String username = getIntent().getStringExtra(INTENT_USERNAME);
         RetroFitClient rfClient = new RetroFitClient();
         toggleProgressBar(true);
         rfClient.getUser(username, new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 List<GithubResponse> ghResponse = (List<GithubResponse>) response.body();
-                initFeedRecyclerView(ghResponse);
+                if (ghResponse!=null) {
+                    if (ghResponse.size() > 0) {
+                        initFeedRecyclerView(ghResponse);
+                    } else {
+                        Toast.makeText(FeedActivity.this, ">- Didn't found with " + username + "-<", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 toggleProgressBar(false);
             }
 
