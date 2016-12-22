@@ -1,6 +1,7 @@
 package com.androidyug.materialgithub.githubfeed;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,13 @@ import com.androidyug.materialgithub.R;
 import com.androidyug.materialgithub.model.GithubResponse;
 import com.androidyug.materialgithub.model.Owner;
 import com.androidyug.materialgithub.network.RetroFitClient;
+import com.androidyug.materialgithub.utility.StreamDrawable;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -69,9 +76,25 @@ public class FeedActivity extends AppCompatActivity {
     }
 
 
+
+    private SimpleTarget target = new SimpleTarget<Bitmap>(200,200) {
+        @Override
+        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+
+             final int CORNER_RADIUS = 4; // dips
+             final int MARGIN = 0; // dips
+
+            final float density = FeedActivity.this.getResources().getDisplayMetrics().density;
+           int  mCornerRadius = (int) (CORNER_RADIUS * density + 0.5f);
+           int  mMargin = (int) (MARGIN * density + 0.5f);
+            StreamDrawable sd = new StreamDrawable(bitmap, mCornerRadius, mMargin);
+            ivAvatar.setImageDrawable(sd);
+        }
+    };
+
     void initFeedRecyclerView(List<GithubResponse> githubResponseList){
         Owner owner = githubResponseList.get(0).getOwner();
-        Glide.with(this).load(owner.getAvatar_url()).into(ivAvatar);
+        Glide.with(this).load(owner.getAvatar_url()).asBitmap().into(target);
         tvUsername.setText(owner.getLogin());
         rvFeed.setAdapter(new RvFeedAdapter(githubResponseList, this));
         rvFeed.setLayoutManager(new LinearLayoutManager(this));
